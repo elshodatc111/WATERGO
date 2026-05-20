@@ -25,23 +25,27 @@
 <body>
 
     <header id="header" class="header fixed-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-                <h3 style="font-weight: 900">MiranCoach</h3> 
+        <div class="d-flex align-items-center justify-content-center text-center">
+            <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center text-center">
+                <h3 style="font-weight: 900">WaterGo</h3> 
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
-        @include('layouts.partials.header')
+        @include('layout.header')
     </header>
 
-    <aside id="sidebar" class="sidebar"><ul class="sidebar-nav" id="sidebar-nav">@include('layouts.partials.menu')</ul></aside>
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            @include('layout.menu')
+        </ul>
+    </aside>
 
     <main id="main" class="main">
         @yield('content')
     </main>
     
     <footer id="footer" class="footer">
-        @include('layouts.partials.footer')
+        @include('layout.footer')
     </footer>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -57,6 +61,9 @@
     <script src="https://atkopanel.uz/umka/public/assets/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+    <script>
+        $(".phone").inputmask("+998 99 999 9999");
+    </script>
 </body>
 
 </html>

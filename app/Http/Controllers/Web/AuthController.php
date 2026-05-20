@@ -17,6 +17,7 @@ class AuthController extends Controller{
             'phone' => 'required|string',
             'password' => 'required|string',
         ]);
+        $credentials['phone'] = str_replace(" ", "", $credentials['phone']); 
         $remember = $request->has('remember');
         if (Auth::attempt($credentials, $remember)) {
             $user = Auth::user();
