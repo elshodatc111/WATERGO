@@ -14,7 +14,7 @@
     <section class="section dashboard">
         <div class="card">
             <div class="card-body">
-                <div class="notes-wrapper" style="max-height: 500px; overflow-y: auto; overflow-x: hidden;height: 500px;">
+                <div class="notes-wrapper">
                     <div class="row">
                         <div class="col-lg-6">
                             <h2 class="card-title">Hodim haqida</h2>
@@ -49,12 +49,11 @@
                                         <td style="text-align: right">{{ $user->created_at }}</td>
                                     </tr>
                                 </table>
-                                <button class="btn btn-info my-1 w-100">Ish haqi to'lash</button>
-                                
+                                <button class="btn btn-info text-white my-1 w-100" data-bs-toggle="modal" data-bs-target="#add_payment">Ish haqi to'lash</button>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <form action="" method="post">
+                                    <form action="{{ route('users_update_status') }}" method="post">
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $user->id }}">
                                         @if($user->status)
@@ -65,10 +64,10 @@
                                     </form>
                                 </div>
                                 <div class="col-6">                                        
-                                    <form action="" method="post">
+                                    <form action="{{ route('users_update_password') }}" method="post">
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <button class="btn btn-warning my-1 w-100">Parolni yangilash</button>
+                                        <button class="btn btn-warning text-white my-1 w-100">Parolni yangilash</button>
                                     </form>
                                 </div>
                             </div>
@@ -101,7 +100,7 @@
         </div>
     </section>    
 
-    <div class="modal fade" id="new_user" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="add_payment" tabindex="-1" aria-hidden="true">
         <form action="#" method="post">
             @csrf 
             <div class="modal-dialog modal-lg modal-dialog-centered">

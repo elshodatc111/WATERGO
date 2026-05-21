@@ -21,5 +21,7 @@ Route::middleware('web.auth')->group(function () {
     Route::get('/users/show/{id}', [UserController::class, 'show'])->name('users_show');
     Route::post('/users', [UserController::class, 'store'])->name('users_store');
     Route::post('/user/update', [UserController::class, 'update'])->name('users_update');
+    Route::post('/user/update/status', [UserController::class, 'update_status'])->name('users_update_status');
+    Route::post('/user/update/password', [UserController::class, 'update_password'])->name('users_update_password');
 
 });

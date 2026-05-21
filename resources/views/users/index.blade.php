@@ -23,7 +23,7 @@
                         <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#new_user"><i class="bi bi-plus-circle"></i> Yangi hodim qo'shish</button>
                     </div>
                 </div>
-                <div class="notes-wrapper" style="max-height: 500px; overflow-y: auto; overflow-x: hidden;height: 500px;">
+                <div class="notes-wrapper mt-2">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" style="font-size: 14px">
                             <thead>
