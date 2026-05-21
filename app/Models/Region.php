@@ -16,7 +16,7 @@ class Region extends Model{
         'user_id',
     ];
 
-    public function user_id(): BelongsTo{
+    public function user(): BelongsTo{
         return $this->belongsTo(User::class, 'user_id');
     }
 }

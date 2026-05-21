@@ -30,8 +30,8 @@
                                 <th>ID</th>
                                 <th>Hudud</th>
                                 <th>Hudud holati</th>
-                                <th>Xaydovchilar</th>
-                                <th>Hudud ochildi</th>
+                                <th>Haydovchilar</th>
+                                <th>Hudud ochildi</th> 
                             </tr>
                         </thead>
                         <tbody>
