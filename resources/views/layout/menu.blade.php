@@ -6,6 +6,13 @@
 </li>
 
 <li class="nav-item">
+  <a class="nav-link {{ request()->routeIs(['users_index','users_show']) ? '' : 'collapsed' }}" href="{{ route('users_index') }}">
+    <i class="bi bi-person-badge"></i>
+    <span>Hodimlar</span>
+  </a>
+</li>
+
+<li class="nav-item">
   <a class="nav-link collapsed" href="">
     <i class="bi bi-person-badge"></i>
     <span>Menu1</span>
