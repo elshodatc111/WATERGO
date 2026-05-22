@@ -52,7 +52,7 @@
                                 <button class="btn btn-info text-white my-1 w-100" data-bs-toggle="modal" data-bs-target="#add_payment">Ish haqi to'lash</button>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                     <form action="{{ route('users_update_status') }}" method="post">
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $user->id }}">
@@ -63,7 +63,7 @@
                                         @endif
                                     </form>
                                 </div>
-                                <div class="col-6">                                        
+                                <div class="col-lg-6">                                        
                                     <form action="{{ route('users_update_password') }}" method="post">
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $user->id }}">
@@ -98,34 +98,69 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="notes-wrapper" style="max-height: 300px; overflow-y: auto; overflow-x: hidden;min-height:300px;">
+                    <h2 class="card-title">Ish haqi tarixi</h2>
+                    <div class="table-responsive">
+                        <table class="table text-center table-bordered table-striped" style="font-size: 14px">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">To'lov summasi</th>
+                                    <th scope="col">To'lov turi</th>
+                                    <th scope="col">Hodim</th>
+                                    <th scope="col">Direktor</th>
+                                    <th scope="col">To'lov vaqti</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($salary as $item)
+                                    <tr>
+                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>{{ $item->amount }}</td>
+                                        <td>{{ $item->type }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->admin->name }}</td>
+                                        <td>{{ $item->created_at->format('Y-m-d H:i') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6">Ish haqi to'lovi mavjud emas</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>    
 
     <div class="modal fade" id="add_payment" tabindex="-1" aria-hidden="true">
-        <form action="#" method="post">
+        <form action="{{ route('users_salary_store') }}" method="post">
             @csrf 
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content border-0 shadow">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">
-                            <i class="bi bi-plus-circle me-2"></i> Yangi hodim qo'shish
+                            <i class="bi bi-plus-circle me-2"></i> Ish haqi to'lash
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <label for="amount" class="mb-2">Yangi hodim FIO</label>
-                        <input type="text" name="amount" required class="form-control">
-                        <label for="amount_type" class="my-2">Hodim telefon raqami</label>
-                        <input type="text" name="amount" required class="form-control phone" value="+998">
-                        <label for="amount_type" class="my-2">Hodim Lavozimi</label>
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        <label for="amount" class="mb-2">Ish haqi summasi</label>
+                        <input type="text" name="count" required class="form-control amount-mask" value="{{ old('count') }}">
+                        <label for="amount_type" class="my-2">To'lov turi</label>
                         <select name="amount_type" required class="form-select">
                             <option value="">Tanlang</option>
-                            <option value="drektor">Direktor</option>
-                            <option value="operator">Operator</option>
-                            <option value="currer">Xaydavchi</option>
-                            <option value="omborchi">Omborchi</option>
+                            <option value="cash">Naqt</option>
+                            <option value="card">Karta</option>
+                            <option value="bank">Bank</option>
                         </select>
-                        <label for="amount_type" class="my-2">Hodim Oylik ish haqi</label>
-                        <input type="text" name="amount" required class="form-control">
+                        <label for="description" class="my-2">Hodim Lavozimi</label>
+                        <textarea name="description" required class="form-control" rows="4">{{ old('description') }}</textarea>
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary border-0 px-4" data-bs-dismiss="modal">Bekor qilish</button>
