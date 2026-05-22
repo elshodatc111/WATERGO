@@ -35,6 +35,10 @@ Route::middleware('web.auth')->group(function () {
     Route::post('/regions/trash/currer', [RegionController::class, 'trash_currer'])->name('regions_trash_currer');
 
     Route::get('/moliya', [MoliyaController::class, 'index'])->name('moliya_index');
+    Route::post('/moliya/maxsulot/kirim', [MoliyaController::class, 'maxsulotKirim'])->name('moliya_maxsulot_kirim');
+    Route::post('/moliya/daromad/chiqim', [MoliyaController::class, 'daromadChiqim'])->name('moliya_daromad_chiqim');
+    Route::post('/moliya/xarajat/chiqim', [MoliyaController::class, 'storeXarajat'])->name('moliya_xarajat_chiqim');
+
     Route::get('/moliya/settings', [MoliyaSettingController::class, 'index'])->name('moliya_settings');
     Route::post('/moliya/settings/update', [MoliyaSettingController::class, 'update'])->name('moliya_settings_update');
 
