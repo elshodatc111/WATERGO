@@ -44,12 +44,12 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Mavjud yangi maxsulotlar</h2>
+                        <h2 class="card-title">Mavjud yangi Mahsulotlar</h2>
                         <div class="table-responsive">
                             <table class="table text-center table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Yangi idishlar</th>
+                                        <th scope="col">Idishlar</th>
                                         <th scope="col">Yorliqlar</th>
                                         <th scope="col">Qobqog'</th>
                                     </tr>
@@ -63,8 +63,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#maxsulotkirim">Maxsulot kirim qilish</button>
-                        <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#maxsulotchiqim">Maxsulot chiqim qilish</button>
+                        <button class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#Mahsulotkirim">Mahsulot kirim qilish</button>
+                        <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#Mahsulotchiqim">Mahsulot chiqim qilish</button>
                     </div>
                 </div>
             </div>
@@ -176,28 +176,28 @@
             </div>
         </form>
     </div>
-    <div class="modal fade" id="maxsulotkirim" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="Mahsulotkirim" tabindex="-1" aria-hidden="true">
         <form action="{{ route('moliya_maxsulot_kirim') }}" method="post">
             @csrf 
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content border-0 shadow">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">
-                            <i class="bi bi-plus-circle me-2"></i> Maxsulot kirim qilish
+                            <i class="bi bi-plus-circle me-2"></i> Mahsulot kirim qilish
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <label for="type" class="mb-2">Maxsulot turini tanlang</label>
+                        <label for="type" class="mb-2">Mahsulot turini tanlang</label>
                         <select name="type" required class="form-control">
                             <option value="">Turini tanlang</option>
                             <option value="input_contaner">Yangi idish</option>
                             <option value="input_label">Yangi yorliqlar</option>
                             <option value="input_cover">Yangi qopqoq</option>
                         </select>`
-                        <label for="count" class="my-2">Maxsulot soni</label>
+                        <label for="count" class="my-2">Mahsulot soni</label>
                         <input type="text" name="count" required class="form-control amount-mask" value="{{ old('count') }}">
-                        <label for="description" class="my-2">Maxsulot tavsifi</label>
+                        <label for="description" class="my-2">Mahsulot tavsifi</label>
                         <textarea name="description" required class="form-control" rows="4">{{ old('description') }}</textarea>
                     </div>
                     <div class="modal-footer bg-light">
@@ -208,21 +208,28 @@
             </div>
         </form>
     </div>    
-    <div class="modal fade" id="maxsulotchiqim" tabindex="-1" aria-hidden="true">
-        <form action="#" method="post">
+    <div class="modal fade" id="Mahsulotchiqim" tabindex="-1" aria-hidden="true">
+        <form action="{{ route('moliya_maxsulot_chiqim') }}" method="post">
             @csrf 
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content border-0 shadow">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">
-                            <i class="bi bi-plus-circle me-2"></i> Maxsulot chiqim qilish
+                            <i class="bi bi-plus-circle me-2"></i> Mahsulot omborga chiqim qilish
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <label for="name" class="mb-2">Yangi hudud nomi</label>
-                        <input type="text" name="name" required class="form-control" value="{{ old('name') }}">
-                        <label for="description" class="my-2">Hudud tavsifi</label>
+                        <label for="type" class="mb-2">Mahsulot turini tanlang</label>
+                        <select name="type" required class="form-control">
+                            <option value="">Turini tanlang</option>
+                            <option value="input_contaner">Yangi idish</option>
+                            <option value="input_label">Yangi yorliqlar</option>
+                            <option value="input_cover">Yangi qopqoq</option>
+                        </select>`
+                        <label for="count" class="my-2">Mahsulot soni</label>
+                        <input type="text" name="count" required class="form-control amount-mask" value="{{ old('count') }}">
+                        <label for="description" class="my-2">Mahsulot tavsifi</label>
                         <textarea name="description" required class="form-control" rows="4">{{ old('description') }}</textarea>
                     </div>
                     <div class="modal-footer bg-light">

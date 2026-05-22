@@ -10,21 +10,21 @@ return new class extends Migration{
         Schema::create('farm_histories', function (Blueprint $table) {
             $table->id();
             $table->enum('type', [
-                'input_label', 
-                'input_cover', 
-                'input_contaner',
+                'input_label',  // +
+                'input_cover',  // +
+                'input_contaner', // +
                 'input_bank', 
                 'input_card', 
                 'input_cash',
-                'income_bank', 
-                'income_card', 
-                'income_cash',
-                'cost_bank', 
-                'cost_card', 
-                'cost_cash',
-                'salary_cash', 
-                'salary_card', 
-                'salary_bank', 
+                'income_bank',  // +
+                'income_card',  // +
+                'income_cash', // +
+                'cost_bank',  // +
+                'cost_card',  // +
+                'cost_cash', // +
+                'salary_cash',  // +
+                'salary_card',  // +
+                'salary_bank', // +
                 'output_contaner', 
                 'output_cover', 
                 'output_label',

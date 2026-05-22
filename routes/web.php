@@ -37,6 +37,7 @@ Route::middleware('web.auth')->group(function () {
 
     Route::get('/moliya', [MoliyaController::class, 'index'])->name('moliya_index');
     Route::post('/moliya/maxsulot/kirim', [MoliyaController::class, 'maxsulotKirim'])->name('moliya_maxsulot_kirim');
+    Route::post('/moliya/maxsulot/chiqim', [MoliyaController::class, 'maxsulotChiqim'])->name('moliya_maxsulot_chiqim');
     Route::post('/moliya/daromad/chiqim', [MoliyaController::class, 'daromadChiqim'])->name('moliya_daromad_chiqim');
     Route::post('/moliya/xarajat/chiqim', [MoliyaController::class, 'storeXarajat'])->name('moliya_xarajat_chiqim');
 
