@@ -6,7 +6,8 @@ use App\Http\Controllers\Web\{
     MoliyaController,
     MoliyaSettingController,
     RegionController,
-    UserController
+    UserController,
+    OmborxonaController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +44,12 @@ Route::middleware('web.auth')->group(function () {
 
     Route::get('/moliya/settings', [MoliyaSettingController::class, 'index'])->name('moliya_settings');
     Route::post('/moliya/settings/update', [MoliyaSettingController::class, 'update'])->name('moliya_settings_update');
+
+    Route::get('/omborxona/kassa', [OmborxonaController::class, 'kassaIndex'])->name('omborxona_kassa_index');
+    Route::post('/omborxona/kassa/chiqim', [OmborxonaController::class, 'kassaChiqim'])->name('omborxona_kassa_chiqim');
+    Route::post('/omborxona/kassa/chiqim/cancel', [OmborxonaController::class, 'kassaChiqimCancel'])->name('omborxona_kassa_chiqim_cancel');
+    Route::post('/omborxona/kassa/chiqim/confirm', [OmborxonaController::class, 'kassaChiqimConfirm'])->name('omborxona_kassa_chiqim_confirm');
+    Route::get('/omborxona/currer', [OmborxonaController::class, 'currerIndex'])->name('omborxona_currer_index');
+    Route::get('/omborxona/omborchi', [OmborxonaController::class, 'omborchiIndex'])->name('omborxona_omborchi_index');
 
 });

@@ -13,6 +13,29 @@
 </li>
 
 <li class="nav-item">
+  <a class="nav-link {{ request()->routeIs(['omborxona_kassa_index','omborxona_currer_index', 'omborxona_omborchi_index']) ? '' : 'collapsed' }}" data-bs-target="#omborxona-nav" data-bs-toggle="collapse" href="#">
+    <i class="bi bi-pie-chart"></i><span>Omborxona</span><i class="bi bi-chevron-down ms-auto"></i>
+  </a>
+  <ul id="omborxona-nav" class="nav-content collapse {{ request()->routeIs(['omborxona_kassa_index','omborxona_currer_index','omborxona_omborchi_index']) ? 'show' : '' }}" data-bs-parent="#omborxona-nav">
+    <li>
+      <a href="{{ route('omborxona_kassa_index') }}" class="nav-link {{ request()->routeIs(['omborxona_kassa_index']) ? '' : 'collapsed' }}">
+        <i class="bi bi-circle"></i><span>Kassa</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ route('omborxona_currer_index') }}" class="nav-link {{ request()->routeIs(['omborxona_currer_index']) ? '' : 'collapsed' }}">
+        <i class="bi bi-circle"></i><span>Xaydovchilar</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ route('omborxona_omborchi_index') }}" class="nav-link {{ request()->routeIs(['omborxona_omborchi_index']) ? '' : 'collapsed' }}">
+        <i class="bi bi-circle"></i><span>Omborchilar</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item">
   <a class="nav-link {{ request()->routeIs(['moliya_index']) ? '' : 'collapsed' }}" href="{{ route('moliya_index') }}">
     <i class="bi bi-person-badge"></i>
     <span>Moliya</span>

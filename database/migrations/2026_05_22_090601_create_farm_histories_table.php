@@ -13,9 +13,10 @@ return new class extends Migration{
                 'input_label',  // +
                 'input_cover',  // +
                 'input_contaner', // +
-                'input_bank', 
-                'input_card', 
-                'input_cash',
+                'input_bank', // +
+                'input_card', // +
+                'input_cash', // +
+                'output_deffect',
                 'income_bank',  // +
                 'income_card',  // +
                 'income_cash', // +
@@ -25,15 +26,15 @@ return new class extends Migration{
                 'salary_cash',  // +
                 'salary_card',  // +
                 'salary_bank', // +
-                'output_contaner', 
-                'output_cover', 
-                'output_label',
+                'output_contaner', // +
+                'output_cover',  // +
+                'output_label',  // + 
             ]);
             $table->boolean('status')->default(false);
             $table->decimal('count', 10, 0)->default(0);
             $table->string('description')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }
