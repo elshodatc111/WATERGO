@@ -38,7 +38,7 @@
                             @forelse($region as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td><a href="{{ route('regions_show', $item['id']) }}" class="text-decoration-none">{{ $item['name'] }}</a></td>
+                                    <td style="text-align: left;"><a href="{{ route('regions_show', $item['id']) }}" class="text-decoration-none">{{ $item['name'] }}</a></td>
                                     <td>
                                         @if($item['status'] == 1)
                                             <span class="badge role-badge px-3 py-1.5">Faol</span>
@@ -46,7 +46,7 @@
                                             <span class="badge role-badge px-3 py-1.5">Faol emas</span>
                                         @endif
                                     </td>
-                                    <td>{{ $item['currer'] }}</td>
+                                    <td><span class="badge role-badge ">{{ $item['currer'] }}</span></td>
                                     <td>{{ $item['created_at']->format('d-m-Y H:i') }}</td>
                                 </tr>
                             @empty

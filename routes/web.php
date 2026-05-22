@@ -3,6 +3,8 @@
 use App\Http\Controllers\Web\{
     AuthController, 
     HomeController,
+    MoliyaController,
+    MoliyaSettingController,
     RegionController,
     UserController
 };
@@ -31,5 +33,9 @@ Route::middleware('web.auth')->group(function () {
     Route::post('/regions/update', [RegionController::class, 'update'])->name('regions_update');
     Route::post('/regions/add/currer', [RegionController::class, 'add_currer'])->name('regions_add_currer');
     Route::post('/regions/trash/currer', [RegionController::class, 'trash_currer'])->name('regions_trash_currer');
+
+    Route::get('/moliya', [MoliyaController::class, 'index'])->name('moliya_index');
+    Route::get('/moliya/settings', [MoliyaSettingController::class, 'index'])->name('moliya_settings');
+    Route::post('/moliya/settings/update', [MoliyaSettingController::class, 'update'])->name('moliya_settings_update');
 
 });
