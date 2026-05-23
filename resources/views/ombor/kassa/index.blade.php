@@ -64,18 +64,18 @@
                                     <td>{{ $item->user->name }}</td>
                                     <td>{{ date('d-m-Y H:i', strtotime($item->created_at)) }}</td>
                                     <td class="d-flex align-items-center gap-1 text-center justify-content-center">
-                                        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'drektor')
-                                            <form action="{{ route('omborxona_kassa_chiqim_cancel') }}" method="post" class="m-0">
-                                                @csrf
-                                                <input type="hidden" name="history_id" value="{{ $item->id }}">
-                                                <button type="submit" class="btn btn-danger p-0 px-1"><i class="bi bi-trash"></i></button>
-                                            </form>
-                                        @endif
+                                        <form action="{{ route('omborxona_kassa_chiqim_cancel') }}" method="post" class="m-0">
+                                            @csrf
+                                            <input type="hidden" name="history_id" value="{{ $item->id }}">
+                                            <button type="submit" class="btn btn-danger p-0 px-1"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                        @if(auth()->user()->type == 'admin' || auth()->user()->type == 'drektor')
                                         <form action="{{ route('omborxona_kassa_chiqim_confirm') }}" method="post" class="m-0">
                                             @csrf
                                             <input type="hidden" name="history_id" value="{{ $item->id }}">
                                             <button type="submit" class="btn btn-success p-0 px-1"><i class="bi bi-check"></i></button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

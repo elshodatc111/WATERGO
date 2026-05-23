@@ -49,7 +49,9 @@ Route::middleware('web.auth')->group(function () {
     Route::post('/omborxona/kassa/chiqim', [OmborxonaController::class, 'kassaChiqim'])->name('omborxona_kassa_chiqim');
     Route::post('/omborxona/kassa/chiqim/cancel', [OmborxonaController::class, 'kassaChiqimCancel'])->name('omborxona_kassa_chiqim_cancel');
     Route::post('/omborxona/kassa/chiqim/confirm', [OmborxonaController::class, 'kassaChiqimConfirm'])->name('omborxona_kassa_chiqim_confirm');
-    Route::get('/omborxona/currer', [OmborxonaController::class, 'currerIndex'])->name('omborxona_currer_index');
     Route::get('/omborxona/omborchi', [OmborxonaController::class, 'omborchiIndex'])->name('omborxona_omborchi_index');
+    Route::post('/omborxona/omborchi/nosoz/chiqim', [OmborxonaController::class, 'omborNosozChiqim'])->name('omborxona_omborchi_nosoz_chiqim');
+    Route::post('/omborxona/omborchi/nosoz/chiqim/confirm', [OmborxonaController::class, 'nosozIdishChiqimConfirm'])->name('omborxona_omborchi_nosoz_chiqim_confirm');
+    Route::get('/omborxona/currer', [OmborxonaController::class, 'currerIndex'])->name('omborxona_currer_index');
 
 });

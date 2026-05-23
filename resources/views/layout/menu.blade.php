@@ -29,7 +29,7 @@
     </li>
     <li>
       <a href="{{ route('omborxona_omborchi_index') }}" class="nav-link {{ request()->routeIs(['omborxona_omborchi_index']) ? '' : 'collapsed' }}">
-        <i class="bi bi-circle"></i><span>Omborchilar</span>
+        <i class="bi bi-circle"></i><span>Ombor</span>
       </a>
     </li>
   </ul>

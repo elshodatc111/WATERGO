@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KassaChiqimRequest;
+use App\Http\Requests\StoreIdishChiqimRequest;
 use App\Models\FarmHistory;
 use App\Models\Moliya;
 use App\Models\Ombor;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class OmborxonaController extends Controller{
     public function kassaIndex(){
         $ombor = Ombor::getOmbor();
-        $history = FarmHistory::where('status',false)->orderby('created_at', 'desc')->get();
+        $history = FarmHistory::where('status',false)->where('type','!=','output_deffect')->orderby('created_at', 'desc')->get();
         return view('ombor.kassa.index', compact('ombor', 'history'));
     }
 
@@ -77,10 +78,47 @@ class OmborxonaController extends Controller{
         return back()->with('success', 'Chiqim tasdiqlandi.');
     }
 
+    public function omborchiIndex(){
+        $ombor = Ombor::getOmbor();
+        $history = FarmHistory::where('status',false)->where('type','output_deffect')->orderby('created_at', 'desc')->get();
+        return view('ombor.omborchi.index', compact('ombor', 'history'));
+    }
+
+    public function omborNosozChiqim(StoreIdishChiqimRequest $request){
+        $validated = $request->validated();
+        $ombor = Ombor::getOmbor();
+        $payType = $validated['type'];
+        $count = $validated['count'];
+        if (!isset($ombor->$payType) || $ombor->$payType < $count) {
+            return redirect()->back()->withErrors(['count' => 'Omborda yetarli idish mavjud emas.'])->withInput();
+        }
+        DB::transaction(function() use ($validated, $ombor, $payType, $count) {
+            $ombor->decrement($payType, $count);
+            FarmHistory::create([
+                'type'        => 'output_deffect',
+                'status'      => false,
+                'count'       => $count,
+                'description' => $validated['description'],
+                'user_id'     => Auth::id(),
+                'admin_id'    => null,
+            ]);
+        });
+        return back()->with('success', 'Nosoz idishlar chiqim qilindi.');
+    }
+
+    public function nosozIdishChiqimConfirm(Request $request){
+        $historyId = $request->input('history_id');
+        $history = FarmHistory::findOrFail($historyId);
+        if ($history->status) {
+            return back()->withErrors(['error' => 'Bu chiqim allaqachon tasdiqlangan.']);
+        }
+        DB::transaction(function() use ($history) {
+            $history->update(['status' => true, 'admin_id' => Auth::id()]);
+        });
+        return back()->with('success', 'Chiqim tasdiqlandi.');
+    }
+
     public function currerIndex(){
         return view('ombor.currer.index');
-    }
-    public function omborchiIndex(){
-        return view('ombor.omborchi.index');
     }
 }
