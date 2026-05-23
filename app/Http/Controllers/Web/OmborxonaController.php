@@ -4,9 +4,11 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KassaChiqimRequest;
+use App\Http\Requests\StoreCurrerChiqimRequest;
 use App\Http\Requests\StoreIdishChiqimRequest;
 use App\Http\Requests\StoreIshlabChiqarishRequest;
 use App\Models\Currer;
+use App\Models\CurrerHistory;
 use App\Models\FarmHistory;
 use App\Models\Moliya;
 use App\Models\Ombor;
@@ -177,6 +179,71 @@ class OmborxonaController extends Controller{
             'full_contaner' => $full_contaner,
             'empty_contaner' => $empty_contaner,
         ];
-        return view('ombor.currer.index', compact('currer','res'));
+        $ombor = Ombor::getOmbor();
+        $currerHistory = CurrerHistory::orderby('id','desc')->limit(100)->get();
+        return view('ombor.currer.index', compact('currer','res','ombor','currerHistory'));
+    }
+
+    public function currergaChiqim(StoreCurrerChiqimRequest $request){
+        $ombor = Ombor::getOmbor();
+        $request->merge(['ombor' => $ombor]);
+        $validated = $request->validated();
+        DB::transaction(function() use ($validated,$ombor) {
+            $ombor->decrement('full_contaner', $validated['count']);
+            CurrerHistory::create([
+                'currer_id' => $validated['currer_id'],
+                'type' => "out_full_contaner",
+                'count' => $validated['count'],
+                'description' => $validated['description'],
+                'status' => false,
+                'user_id' => Auth::id()
+            ]);
+        });
+        return redirect()->back()->with('success', 'Xaydovchiga mahsulot muvaffaqiyatli chiqim qilindi! Xaydovchi tasdiqlashi kutilmoqda.');
+    }
+
+    public function currergaChiqimCancel(Request $request){        
+        $history = CurrerHistory::findOrFail($request->id);
+        if($history->status){
+            return back()->withErrors(['Chiqim allaqachon tasdiqlangan bekor qilish imkonsiz']);    
+        }
+        if($history->type != 'out_full_contaner'){
+            return back()->withErrors(['Chiqim turi xato bekor qilish imkonsiz.']);    
+        }
+        $ombor = Ombor::getOmbor();
+        DB::transaction(function() use ($history,$ombor) {
+            $ombor->increment('full_contaner', $history['count']);
+            $history->delete();
+        });
+        return redirect()->back()->with('success', 'Xaydovchiga chiqim bekor qilindi');
+    }
+
+    public function currergaChiqimSuccess(Request $request){
+        $history = CurrerHistory::findOrFail($request->id);
+        if($history->status){
+            return back()->withErrors(['Chiqim allaqachon tasdiqlangan tasdiqlash imkonsiz']);    
+        }
+        if($history->type == 'out_full_contaner'){
+            return back()->withErrors(['Kirim turi xato tasdiqlash imkonsiz.']);    
+        }
+        $ombor = Ombor::getOmbor();
+        DB::transaction(function() use ($history,$ombor) {
+            if($history->type == 'inp_cash'){
+                $ombor->increment('cash', $history['count']);
+            }elseif($history->type == 'inp_card'){
+                $ombor->increment('card', $history['count']);
+            }elseif($history->type == 'inp_bank'){
+                $ombor->increment('bank', $history['count']);
+            }elseif($history->type == 'inp_full_contaner'){
+                $ombor->increment('full_contaner', $history['count']);
+            }elseif($history->type == 'inp_empty_contaner'){
+                $ombor->increment('empty_contaner', $history['count']);
+            }elseif($history->type == 'inp_def_contaner'){
+                $ombor->increment('defect_contaner', $history['count']);
+            }
+            $history->status = true;
+            $history->save();
+        });
+        return redirect()->back()->with('success', 'Omborga kirim tasdiqlandi');
     }
 }
