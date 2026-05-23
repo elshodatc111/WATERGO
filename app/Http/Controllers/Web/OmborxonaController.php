@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\KassaChiqimRequest;
 use App\Http\Requests\StoreIdishChiqimRequest;
 use App\Http\Requests\StoreIshlabChiqarishRequest;
+use App\Models\Currer;
 use App\Models\FarmHistory;
 use App\Models\Moliya;
 use App\Models\Ombor;
 use App\Models\OmborHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -142,6 +144,39 @@ class OmborxonaController extends Controller{
     }
 
     public function currerIndex(){
-        return view('ombor.currer.index');
+        $users = User::where('type', 'currer')->where('status', true)->get();
+        $currer = [];
+        $cash = 0;
+        $card = 0;
+        $bank = 0;
+        $full_contaner = 0;
+        $empty_contaner = 0;
+        foreach($users as $user){
+            $item = Currer::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'user_id' => $user->id,
+                    'cash'   => 0,
+                    'card'   => 0,
+                    'bank'   => 0,
+                    'full_contaner' => 0,
+                    'empty_contaner' => 0,
+                ]
+            );
+            $cash = $cash + $item['cash'];
+            $card = $card + $item['card'];
+            $bank = $bank + $item['bank'];
+            $full_contaner = $full_contaner + $item['full_contaner'];
+            $empty_contaner = $empty_contaner + $item['empty_contaner'];
+            $currer[] = $item;
+        }
+        $res = [
+            'cash' => $cash,
+            'card' => $card,
+            'bank' => $bank,
+            'full_contaner' => $full_contaner,
+            'empty_contaner' => $empty_contaner,
+        ];
+        return view('ombor.currer.index', compact('currer','res'));
     }
 }
