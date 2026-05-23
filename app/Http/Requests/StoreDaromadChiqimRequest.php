@@ -13,21 +13,9 @@ class StoreDaromadChiqimRequest extends FormRequest{
     
     public function rules(): array{
         return [
-            'count' => [
-                'required',
-                'numeric',
-                'gt:0',
-            ],
-            'pay_type' => [
-                'required',
-                'string',
-                'in:cash,card,bank',
-            ],
-            'description' => [
-                'required',
-                'string',
-                'max:2000',
-            ],
+            'count' => ['required','numeric','gt:0',],
+            'pay_type' => ['required','string','in:cash,card,bank',],
+            'description' => ['required','string','max:2000',],
         ];
     }
 

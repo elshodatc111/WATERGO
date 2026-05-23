@@ -16,12 +16,7 @@ class UpdateRegionRequest extends FormRequest{
 
         return [
             'id' => 'required|integer|exists:regions,id', // ID bazada mavjudligini tekshirish
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('regions', 'name')->ignore($regionId),
-            ],
+            'name' => ['required','string','max:255',Rule::unique('regions', 'name')->ignore($regionId),],
             'description' => 'required|string|max:1000',
         ];
     }

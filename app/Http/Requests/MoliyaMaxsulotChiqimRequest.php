@@ -14,7 +14,7 @@ class MoliyaMaxsulotChiqimRequest extends FormRequest{
         return [
             'type' => ['required','string',Rule::in(['input_contaner', 'input_label', 'input_cover']), ],
             'count' => ['required','string', 'max:255',],
-            'description' => ['required','string','min:5','max:1000',],
+            'description' => ['required','string','min:2','max:1000',],
         ];
     }
     public function messages(): array{

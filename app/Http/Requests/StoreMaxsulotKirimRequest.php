@@ -13,21 +13,9 @@ class StoreMaxsulotKirimRequest extends FormRequest{
     
     public function rules(): array{
         return [
-            'type' => [
-                'required', 
-                'string', 
-                'in:input_contaner,input_cover,input_label'
-            ],
-            'count' => [
-                'required', 
-                'integer', 
-                'min:1'
-            ],
-            'description' => [
-                'required', 
-                'string', 
-                'max:1000'
-            ],
+            'type' => ['required', 'string', 'in:input_contaner,input_cover,input_label'],
+            'count' => ['required', 'integer', 'min:1'],
+            'description' => ['required', 'string', 'max:1000'],
         ];
     }
 

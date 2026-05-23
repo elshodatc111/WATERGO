@@ -16,7 +16,7 @@ class KassaChiqimRequest extends FormRequest{
         return [
             'count' => ['required','numeric','min:0'],
             'type' => ['required','string',Rule::in(['cash', 'card', 'bank']),],
-            'description' => ['required','string','min:3','max:1000',],
+            'description' => ['required','string','min:2','max:1000',],
         ];
     }
 

@@ -21,11 +21,7 @@ class UpdateUserRequest extends FormRequest{
         return [
             'id' => ['required', 'exists:users,id'],
             'name' => ['required', 'string', 'max:255', 'min:3'],            
-            'phone' => [
-                'required', 
-                'regex:/^\+998[0-9]{9}$/', 
-                Rule::unique('users', 'phone')->ignore($userId),
-            ],            
+            'phone' => ['required', 'regex:/^\+998[0-9]{9}$/', Rule::unique('users', 'phone')->ignore($userId),],            
             'type' => ['required', 'string', 'in:drektor,operator,currer,omborchi'],
             'balans' => ['required', 'numeric', 'min:0', 'max:999999999'],
         ];
