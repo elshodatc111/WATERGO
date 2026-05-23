@@ -59,5 +59,7 @@ Route::middleware('web.auth')->group(function () {
 
     Route::get('/orders/check-phone', [OrderController::class, 'checkPhone'])->name('orders.checkPhone');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders_index');
+    Route::get('/orders/end', [OrderController::class, 'index_end'])->name('orders_index_end');
+    Route::post('/order/new', [OrderController::class, 'store'])->name('order_store');
     Route::get('/order/{id}', [OrderController::class, 'show'])->name('order_show');
 });

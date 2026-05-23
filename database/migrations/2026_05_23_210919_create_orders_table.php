@@ -13,11 +13,11 @@ return new class extends Migration{
             $table->string('phone');
             $table->string('address');
             $table->decimal('order_count',10,0);
-            $table->decimal('cash',10,2);
-            $table->decimal('card',10,2);
-            $table->decimal('bank',10,2);
-            $table->decimal('full_contaner',10,0);
-            $table->decimal('empty_contaner',10,0);
+            $table->decimal('cash',10,2)->nullable();
+            $table->decimal('card',10,2)->nullable();
+            $table->decimal('bank',10,2)->nullable();
+            $table->decimal('full_contaner',10,0)->nullable();
+            $table->decimal('empty_contaner',10,0)->nullable();
             $table->enum('status',['new','pending','success','cancel']);
             $table->string('description')->nullable();
             $table->foreignId('operator_id')->constrained('users');
