@@ -5,14 +5,17 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KassaChiqimRequest;
 use App\Http\Requests\StoreIdishChiqimRequest;
+use App\Http\Requests\StoreIshlabChiqarishRequest;
 use App\Models\FarmHistory;
 use App\Models\Moliya;
 use App\Models\Ombor;
+use App\Models\OmborHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OmborxonaController extends Controller{
+    
     public function kassaIndex(){
         $ombor = Ombor::getOmbor();
         $history = FarmHistory::where('status',false)->where('type','!=','output_deffect')->orderby('created_at', 'desc')->get();
@@ -80,8 +83,9 @@ class OmborxonaController extends Controller{
 
     public function omborchiIndex(){
         $ombor = Ombor::getOmbor();
-        $history = FarmHistory::where('status',false)->where('type','output_deffect')->orderby('created_at', 'desc')->get();
-        return view('ombor.omborchi.index', compact('ombor', 'history'));
+        $history = FarmHistory::where('status',false)->where('type','output_deffect')->orderby('created_at', 'desc')->get();        
+        $historyOmbor = OmborHistory::where('created_at', '>=', now()->subDays(60))->orderby('id', 'desc')->get();
+        return view('ombor.omborchi.index', compact('ombor', 'history', 'historyOmbor'));
     }
 
     public function omborNosozChiqim(StoreIdishChiqimRequest $request){
@@ -116,6 +120,25 @@ class OmborxonaController extends Controller{
             $history->update(['status' => true, 'admin_id' => Auth::id()]);
         });
         return back()->with('success', 'Chiqim tasdiqlandi.');
+    }
+
+    public function ishlabChiqarish(StoreIshlabChiqarishRequest $request){
+        $validated = $request->validated();
+        $ombor = Ombor::getOmbor();
+        DB::transaction(function() use ($validated, $ombor) {
+            $ombor->decrement('empty_contaner', $validated['empty_contaner']);
+            $ombor->increment('full_contaner', $validated['empty_contaner']);
+            $ombor->decrement('full_cover', $validated['empty_contaner']);
+            $ombor->decrement('full_label', $validated['full_label']);
+            OmborHistory::create([
+                'contaner' => $validated['empty_contaner'],
+                'label' => $validated['full_label'],
+                'cover' => $validated['empty_contaner'],
+                'description' => $validated['description'],
+                'user_id' => Auth::id(),
+            ]);
+        });
+        return back()->with('success', 'Ishlab chiqarish muvaffaqiyatli amalga oshirildi.');
     }
 
     public function currerIndex(){
