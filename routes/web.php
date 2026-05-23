@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\Web\{
-    AuthController, 
-    HomeController,
-    MoliyaController,
-    MoliyaSettingController,
-    RegionController,
-    UserController,
-    OmborxonaController
-};
+use App\Http\Controllers\web\AuthController;
+use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\web\MoliyaController;
+use App\Http\Controllers\web\MoliyaSettingController;
+use App\Http\Controllers\web\OmborxonaController;
+use App\Http\Controllers\web\OrderController;
+use App\Http\Controllers\web\RegionController;
+use App\Http\Controllers\web\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -58,4 +57,7 @@ Route::middleware('web.auth')->group(function () {
     Route::post('/omborxona/currerga/chiqim/cancel', [OmborxonaController::class, 'currergaChiqimCancel'])->name('omborxona_currerga_chiqim_cancel');
     Route::post('/omborxona/currerga/kirim/success', [OmborxonaController::class, 'currergaChiqimSuccess'])->name('omborxona_currerga_chiqim_success');
 
+    Route::get('/orders/check-phone', [OrderController::class, 'checkPhone'])->name('orders.checkPhone');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders_index');
+    Route::get('/order/{id}', [OrderController::class, 'show'])->name('order_show');
 });
