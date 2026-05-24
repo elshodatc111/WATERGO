@@ -61,5 +61,8 @@ Route::middleware('web.auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders_index');
     Route::get('/orders/end', [OrderController::class, 'index_end'])->name('orders_index_end');
     Route::post('/order/new', [OrderController::class, 'store'])->name('order_store');
+    Route::post('/order/create/chat', [OrderController::class, 'storeChat'])->name('order_store_chat');
+    Route::post('/order/create/cancel', [OrderController::class, 'storeCancel'])->name('order_store_cancel');
+    Route::post('/order/update', [OrderController::class, 'update'])->name('order_update');
     Route::get('/order/{id}', [OrderController::class, 'show'])->name('order_show');
 });
